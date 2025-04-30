@@ -1,0 +1,12 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: chesnut-api-service
+spec:
+  template:
+    spec:
+      containers:
+        - image: asia-southeast1-docker.pkg.dev/chesnut-api/chesnut-live-api/chesnut-live-api:latest
+          env:
+          ports:
+            - containerPort: 4000
