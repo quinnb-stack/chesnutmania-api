@@ -46,5 +46,4 @@ jobs:
             --image ${{ env.DOCKER_IMAGE_URL }}:latest \
             --platform managed \
             --region asia-southeast1 \
-            --allow-unauthenticated \
-            --set-env-vars PORT=4000
+            --allow-unauthenticated

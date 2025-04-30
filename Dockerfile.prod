@@ -13,7 +13,7 @@ RUN pip install --no-cache-dir --upgrade -r /code/requirements/requirements.txt
 # copy src code
 COPY ./app /code/app
 
-EXPOSE 4000
+EXPOSE 80
 
 # start the server
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "4000", "--proxy-headers"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80", "--proxy-headers"]

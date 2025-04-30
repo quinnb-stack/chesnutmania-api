@@ -9,4 +9,4 @@ spec:
         - image: asia-southeast1-docker.pkg.dev/chesnut-api/chesnut-live-api/chesnut-live-api:latest
           env:
           ports:
-            - containerPort: 4000
+            - containerPort: 80
