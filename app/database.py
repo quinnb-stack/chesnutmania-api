@@ -44,4 +44,4 @@ async def ping_mongo():
 
 
 # Running the async function
-asyncio.run(ping_mongo())
+# asyncio.run(ping_mongo())
