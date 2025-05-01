@@ -17,7 +17,7 @@ services:
       - "27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: borinesq
-      MONGO_INITDB_ROOT_PASSWORD: HgItWPRdbghNp97Z
+      MONGO_INITDB_ROOT_PASSWORD: 5ZZM0k96nB7WjzD6
     healthcheck:
       test:  echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
       interval: 10s
@@ -32,8 +32,8 @@ services:
       - 8081:8081
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: borinesq
-      ME_CONFIG_MONGODB_ADMINPASSWORD: HgItWPRdbghNp97Z
-      ME_CONFIG_MONGODB_URL: mongodb://borinesq:HgItWPRdbghNp97Z@mongo:27017/
+      ME_CONFIG_MONGODB_ADMINPASSWORD: 5ZZM0k96nB7WjzD6
+      ME_CONFIG_MONGODB_URL: mongodb://borinesq:5ZZM0k96nB7WjzD6@mongo:27017/
       ME_CONFIG_BASICAUTH: false
     depends_on:
       mongo:

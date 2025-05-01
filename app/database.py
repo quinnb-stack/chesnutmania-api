@@ -2,7 +2,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo.server_api import ServerApi
 import asyncio
 
-uri = "mongodb://borinesq:HgItWPRdbghNp97Z@mongo:27017/"
+uri = "mongodb+srv://borinesq:5ZZM0k96nB7WjzD6@chesnutmunia.t3jjqqf.mongodb.net/?retryWrites=true&w=majority&appName=ChesnutMunia"
 database_names = ["sample_users"]
 
 mongo_databases = {}
@@ -44,4 +44,4 @@ async def ping_mongo():
 
 
 # Running the async function
-# asyncio.run(ping_mongo())
+asyncio.run(ping_mongo())
