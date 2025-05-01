@@ -16,6 +16,9 @@ on:
 jobs:
   dockerize-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: "read"
+      id-token: "write"
 
     steps:
       - name: Checkout repository
@@ -36,14 +39,24 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          docker build -t ${{ env.DOCKER_IMAGE_URL }}:latest -f Dockerfile.prod .
+          docker build \
+            --cache-from ${{ env.DOCKER_IMAGE_URL }}:latest \
+            -t ${{ env.DOCKER_IMAGE_URL }}:latest \
+            -f Dockerfile.prod .
           docker push ${{ env.DOCKER_IMAGE_URL }}:latest
 
       - name: Deploy to Cloud Run
         run: |
-          echo SERVICE_NAME $SERVICE_NAME
           gcloud run deploy $SERVICE_NAME \
             --image ${{ env.DOCKER_IMAGE_URL }}:latest \
             --platform managed \
             --region asia-southeast1 \
-            --allow-unauthenticated
+            --allow-unauthenticated \
+            --timeout=900s
+
+      - name: Set Public Access
+        run: |
+          gcloud run services add-iam-policy-binding $SERVICE_NAME \
+            --region=asia-southeast1 \
+            --member="allUsers" \
+            --role="roles/run.invoker"
