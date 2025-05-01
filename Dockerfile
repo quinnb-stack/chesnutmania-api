@@ -7,6 +7,7 @@ COPY ./requirements /code/requirements/
 # Install dependencies and cleanup
 RUN apt-get update && apt-get install -y \
     build-essential \
+    libssl-dev \
     apt-transport-https ca-certificates gnupg curl \
     telnet netcat-traditional libcairo2-dev \
     git vim net-tools && \
