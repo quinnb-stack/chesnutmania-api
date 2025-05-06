@@ -1,11 +1,11 @@
 services:
   api:
-    build: .
+    build: ./backend
     restart: on-failure
     ports:
       - "8080:80"
     volumes:
-      - ./app:/code/app
+      - ./backend/app:/code/app
       - ./env:/code/env
     depends_on:
       mongo:
