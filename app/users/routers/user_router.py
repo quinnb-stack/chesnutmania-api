@@ -1,15 +1,18 @@
 from bson import ObjectId
-from fastapi import Body, Depends, FastAPI, HTTPException, status, APIRouter
+from fastapi import Body, Depends, HTTPException, status, APIRouter
 from pymongo import ReturnDocument
 from app.database import MongoDatabaseSession
-from app.users.schemas import UserModel, UserCollection, UpdateUserModel
+from app.users.schemas import User, UserCollection, UpdateUser
+from passlib.context import CryptContext
 
-router = APIRouter()
+router = APIRouter(tags=["Users Resources"])
 
 get_db = MongoDatabaseSession("sample_users")
 
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-@router.get("/users/{id}", response_model=UserModel)
+
+@router.get("/users/{id}", response_model=User)
 async def get_user(id: str, db=Depends(get_db)):
     db_user = await db["users"].find_one({"_id": ObjectId(id)})
     if not db_user:
@@ -35,22 +38,22 @@ async def list_users(db=Depends(get_db)):
 @router.post(
     "/users/",
     response_description="Add new user",
-    response_model=UserModel,
+    response_model=User,
     status_code=status.HTTP_201_CREATED,
     response_model_by_alias=False,
 )
-async def create_user(user: UserModel = Body(...), db=Depends(get_db)):
+async def create_user(user: User = Body(...), db=Depends(get_db)):
     """
     Insert a new user record into MongoDB.
 
     A unique `id` will be created and provided in the response.
     """
-    isExist = await db["users"].find_one({"email": user.email})
+    isExist = await db["users"].find_one({"username": user.username})
 
     if isExist:
-        raise HTTPException(
-            status_code=409, detail=f"Email {user.email} already registered"
-        )
+        raise HTTPException(status_code=409, detail=f"Username already registered")
+
+    user.password = pwd_context.hash(user.password)
 
     db_user = await db["users"].insert_one(
         user.model_dump(by_alias=True, exclude=["id"])
@@ -62,10 +65,10 @@ async def create_user(user: UserModel = Body(...), db=Depends(get_db)):
 @router.put(
     "/users/{id}",
     response_description="Update a user",
-    response_model=UserModel,
+    response_model=User,
     response_model_by_alias=False,
 )
-async def update_user(id: str, user: UpdateUserModel = Body(...), db=Depends(get_db)):
+async def update_user(id: str, user: UpdateUser = Body(...), db=Depends(get_db)):
     """
     Update individual fields of an existing user record.
 
@@ -95,7 +98,7 @@ async def update_user(id: str, user: UpdateUserModel = Body(...), db=Depends(get
 @router.put(
     "/users/deactivate/{id}",
     response_description="Deactivate a user",
-    response_model=UserModel,
+    response_model=User,
     response_model_by_alias=False,
 )
 async def deactivate_user(id: str, db=Depends(get_db)):

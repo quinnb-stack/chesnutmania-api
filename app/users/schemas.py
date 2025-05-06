@@ -23,7 +23,7 @@ class PyObjectId(ObjectId):
         return {"type": "string", "example": "60dbf9f531d5b12a1c8b4567"}
 
 
-class UserModel(BaseModel):
+class User(BaseModel):
     """
     Container for a user record.
     """
@@ -32,8 +32,10 @@ class UserModel(BaseModel):
     # This will be aliased to `_id` when sent to MongoDB,
     # but provided as `id` in the API requests and responses.
     id: Optional[PyObjectId] = Field(alias="_id", default=None)
+    username: str = Field(...)
     name: str = Field(...)
     email: str = Field(...)
+    password: str = Field(...)
     isActive: bool = Field(...)
 
     class Config:
@@ -42,20 +44,24 @@ class UserModel(BaseModel):
         json_encoders = {ObjectId: str}  # Fix for serialization
         json_schema_extra = {
             "example": {
+                "username": "janedoe",
                 "name": "Jane Doe",
                 "email": "jdoe@example.com",
+                "password": "asasada1232",
                 "isActive": True,
             }
         }
 
 
-class UpdateUserModel(BaseModel):
+class UpdateUser(BaseModel):
     """
     A set of optional updates to be made to a document in the database.
     """
 
+    username: Optional[str] = None
     name: Optional[str] = None
     email: Optional[str] = None
+    password: Optional[str] = None
     isActive: bool = None
 
     class Config:
@@ -64,8 +70,10 @@ class UpdateUserModel(BaseModel):
         json_encoders = {ObjectId: str}  # Fix for serialization
         json_schema_extra = {
             "example": {
+                "username": "janedoe",
                 "name": "Jane Doe",
                 "email": "jdoe@example.com",
+                "password": "asasada1232",
                 "isActive": True,
             }
         }
@@ -76,4 +84,4 @@ class UserCollection(BaseModel):
     A container holding a list of `UserModel` instances.
     """
 
-    users: List[UserModel]
+    users: List[User]
