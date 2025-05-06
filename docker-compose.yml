@@ -5,7 +5,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./backend/app:/code/app
+      - ./app:/code/app
       - ./env:/code/env
     depends_on:
       mongo:
