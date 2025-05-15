@@ -4,10 +4,10 @@ steps:
       [
         "build",
         "-f",
-        "Dockerfile.prod",
+        "backend/Dockerfile.prod",
         "-t",
         "asia-southeast1-docker.pkg.dev/chesnut-api/chesnut-live-api/chesnut-live-api:latest",
-        ".",
+        "backend",
       ]
 
   - name: "gcr.io/cloud-builders/docker"
