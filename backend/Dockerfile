@@ -2,7 +2,7 @@ FROM python:3.11-slim-bullseye
 
 WORKDIR /code
 
-COPY ./requirements /code/backend/requirements/
+COPY backend/requirements /code/backend/requirements/
 
 # Install system packages
 RUN apt-get update && apt-get install -y --no-install-recommends \

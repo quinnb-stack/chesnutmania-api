@@ -6,7 +6,7 @@ ENV PYTHONUNBUFFERED True
 WORKDIR /code
 
 # install dependencies
-COPY ./requirements /code/backend/requirements/
+COPY backend/requirements /code/backend/requirements/
 
 RUN pip install --no-cache-dir --upgrade -r /code/backend/requirements/requirements.txt
 
