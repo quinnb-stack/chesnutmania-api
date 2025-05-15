@@ -11,7 +11,7 @@ COPY backend/requirements /code/backend/requirements/
 RUN pip install --no-cache-dir --upgrade -r /code/backend/requirements/requirements.txt
 
 # copy src code
-COPY . /code/
+COPY backend /code/
 
 EXPOSE 8080
 

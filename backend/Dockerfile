@@ -30,6 +30,6 @@ RUN curl -sSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dear
 # Install Python dependencies
 RUN pip install --no-cache-dir --upgrade -r /code/backend/requirements/requirements.txt
 
-COPY . /code/
+COPY backend /code/
 
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80", "--reload"]
