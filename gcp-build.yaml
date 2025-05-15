@@ -5,7 +5,7 @@ steps:
       [
         "build",
         "-f",
-        "Dockerfile.prod",
+        "./backend/Dockerfile.prod",
         "-t",
         "asia-southeast1-docker.pkg.dev/chesnut-api/chesnut-live-api/chesnut-live-api:latest",
         ".",
@@ -17,6 +17,18 @@ steps:
         "push",
         "asia-southeast1-docker.pkg.dev/chesnut-api/chesnut-live-api/chesnut-live-api:latest",
       ]
+
+  - name: "ubuntu"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        echo "Current dir:"
+        pwd
+        echo "Root contents:"
+        ls -l
+        echo "Backend contents:"
+        ls -l backend
 
 images:
   - "asia-southeast1-docker.pkg.dev/chesnut-api/chesnut-live-api/chesnut-live-api:latest"
