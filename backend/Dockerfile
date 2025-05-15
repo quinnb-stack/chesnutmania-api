@@ -2,7 +2,7 @@ FROM python:3.11-slim-bullseye
 
 WORKDIR /code
 
-COPY ./requirements /code/requirements/
+COPY ./requirements /code/backend/requirements/
 
 # Install system packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -28,7 +28,7 @@ RUN curl -sSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dear
     rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
-RUN pip install --no-cache-dir --upgrade -r /code/requirements/requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /code/backend/requirements/requirements.txt
 
 COPY . /code/
 
