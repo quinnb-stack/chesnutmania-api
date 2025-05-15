@@ -11,7 +11,7 @@ COPY ./requirements /code/requirements/
 RUN pip install --no-cache-dir --upgrade -r /code/requirements/requirements.txt
 
 # copy src code
-COPY ./app /code/app
+COPY . /code/
 
 EXPOSE 8080
 
