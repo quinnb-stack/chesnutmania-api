@@ -6,12 +6,12 @@ ENV PYTHONUNBUFFERED True
 WORKDIR /code
 
 # install dependencies
-COPY backend/requirements /code/backend/requirements/
+COPY ./requirements /code/requirements
 
-RUN pip install --no-cache-dir --upgrade -r /code/backend/requirements/requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /code/requirements/requirements.txt
 
 # copy src code
-COPY backend /code/
+COPY  ./app /code/app/
 
 EXPOSE 8080
 

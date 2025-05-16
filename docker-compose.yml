@@ -1,11 +1,13 @@
 services:
   api:
-    build: ./backend
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
     restart: on-failure
     ports:
       - "8080:80"
     volumes:
-      - .:/code  
+      - ./backend/app:/code/app 
       - ./env:/code/env
     depends_on:
       mongo:

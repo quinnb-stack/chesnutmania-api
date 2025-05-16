@@ -2,7 +2,7 @@ FROM python:3.11-slim-bullseye
 
 WORKDIR /code
 
-COPY backend/requirements /code/backend/requirements/
+COPY ./requirements /code/requirements
 
 # Install system packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -28,8 +28,8 @@ RUN curl -sSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dear
     rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
-RUN pip install --no-cache-dir --upgrade -r /code/backend/requirements/requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /code/requirements/requirements.txt
 
-COPY backend /code/
+COPY  ./app /code/app/
 
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80", "--reload"]
