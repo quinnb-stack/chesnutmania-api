@@ -12,6 +12,13 @@ services:
     depends_on:
       mongo:
         condition: service_healthy
+  web:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: on-failure
+    ports:
+      - "3000:3000"
   mongo:
     image: mongo:latest
     restart: always
