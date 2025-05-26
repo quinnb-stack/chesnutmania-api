@@ -1,6 +1,6 @@
 FROM python:3.11-slim-bullseye
 
-ENV PYTHONUNBUFFERED True
+ENV PYTHONUNBUFFERED 1
 
 WORKDIR /code
 
@@ -8,7 +8,7 @@ COPY ./requirements /code/requirements
 
 RUN pip install --no-cache-dir --upgrade -r /code/requirements/requirements.txt
 
-COPY  ./app /code/app
+COPY ./app /code/app
 
 EXPOSE 8080
 
