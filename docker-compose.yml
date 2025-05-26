@@ -7,7 +7,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./backend/app:/code/app 
+      - ./backend:/code/app 
       - ./env:/code/env
     depends_on:
       mongo:
@@ -40,5 +40,3 @@ services:
     depends_on:
       mongo:
         condition: service_healthy
-
-  
