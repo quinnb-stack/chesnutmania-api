@@ -42,7 +42,7 @@ jobs:
           docker build \
             --cache-from ${{ env.DOCKER_IMAGE_URL }}:latest \
             -t ${{ env.DOCKER_IMAGE_URL }}:latest \
-            -f backend/Dockerfile.prod .
+            -f backend/Dockerfile.prod backend/
           docker push ${{ env.DOCKER_IMAGE_URL }}:latest
 
       - name: Deploy to Cloud Run
