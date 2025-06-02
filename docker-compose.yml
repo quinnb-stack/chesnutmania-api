@@ -1,4 +1,15 @@
 services:
+  nginx:
+    build: ./nginx
+    restart: on-failure
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+      - web
+    volumes:
+      - ./frontend/build:/var/www/react:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
   api:
     build: 
       context: ./backend
@@ -7,7 +18,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./backend:/code/app 
+      - ./backend/app:/code/app 
       - ./env:/code/env
     depends_on:
       mongo:
